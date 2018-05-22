@@ -1,0 +1,19 @@
+ul{
+    display: inline-block;
+}
+
+li{
+    float: left;
+    border-bottom: 2px solid #000;
+    margin-right: 10px;
+    padding-bottom: 6px;
+    color: transparent;
+}
+
+li:last-child{
+    margin-right: 0;
+}
+
+.scoreCanvas{
+    clear: both;
+}
