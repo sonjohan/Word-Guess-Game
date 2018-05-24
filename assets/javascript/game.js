@@ -30,10 +30,6 @@ var game = {
             '<p>Wins: ' + game.wins + '</p>' +
             '<p>Defeats: ' + game.defeats + '</p>' +
             '<p>Games played: ' + game.score + '</p>' +
-            '</div>' +
-            '<div class="buttonCanvas">' +
-            '<button>Play again</button>' +
-            '<button>Stop Playing</button>' +
             '</div>';
     },
 
@@ -154,10 +150,10 @@ var game = {
     },
 
     playAgain: function () {
-        if (game.userPick != 'P' && game.userPick != 'Q') {
+        if (game.userPick != 'P') {
             return document.querySelector('#mainCanvas').innerHTML =
                 '<div id="messageCanvas">' +
-                '<h3>Please press (P) to play again or (Q) to quit</h3>' +
+                '<h3>Press (P) to play again</h3>' +
                 '</div>' +
                 '<div id="buttons"><button>Press (P) to play again</button>';
         }
@@ -176,13 +172,7 @@ var game = {
                 '<div id="mainCanvas">' +
                 '<h3>Press any key to start!</h3>' +
                 '</div>';
-        } else if (game.userPick === 'Q') {
-            document.querySelector('#mainCanvas').innerHTML =
-                '<div id="messageCanvas">' +
-                '<h3>Thank you for playing, come back soon!</h3>' +
-                '</div>' +
-                '<div id="scoreCanvas">' + game.updateScoreCanvas() + '</div>';
-        };
+        }
     }
 };
 
