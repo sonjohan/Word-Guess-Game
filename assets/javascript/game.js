@@ -60,7 +60,7 @@ var game = {
             if (game.userPick === game.wordToGuess.charAt(k)) {
                 game.letterFound[0] = game.userPick;
                 game.letterFound[1]++;
-                game.drawWord[k] = "<li id='" + k + "' style='color:#000'>" + game.wordToGuess.charAt(k) + "</li>";
+                game.drawWord[k] = "<li id='" + k + "' style='color:#fff'>" + game.wordToGuess.charAt(k) + "</li>";
             }
         };
         return game.wordDraw();

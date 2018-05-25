@@ -1,10 +1,16 @@
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    color: #fff;
+    background-color: #000;
+}
+
 ul{
     display: inline-block;
 }
 
 li{
     float: left;
-    border-bottom: 2px solid #000;
+    border-bottom: 2px solid #fff;
     margin-right: 10px;
     padding-bottom: 4px;
     color: transparent;
@@ -18,4 +24,18 @@ li:last-child{
 
 .scoreCanvas{
     clear: both;
+}
+
+.container{
+    width: 960px;
+    margin: 0 auto;
+}
+
+header{
+    padding: 20px 0;
+}
+
+h1{
+    font-family: 'Carter One', cursive;
+    font-size: 30px;
 }
