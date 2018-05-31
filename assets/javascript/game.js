@@ -12,24 +12,26 @@ var game = {
     letterFound: ['', 0, false],
     score: 0,
     decidedToPlay: false,
-    validLetters: [/[A-Z]/, true],
+    // validLetters: [/[A-Z]/, true],
     winCounter: [],
 
     drawMainCanvas: function () {
         return document.querySelector('#mainCanvas').innerHTML =
             '<div id="messageCanvas">' +
-            '<h3>Please pick a letter, good luck!</h3>' +
+                '<h3>Please pick a letter, good luck!</h3>' +
             '</div>' +
-            '<div>' +
-            '<ul id="letters">' +
-
-            '</ul>' +
-            '</div>' +
-            '<div id="scoreCanvas">' +
-            '<h4>Remaining: ' + game.remaining + '</h4>' +
-            '<p>Wins: ' + game.wins + '</p>' +
-            '<p>Defeats: ' + game.defeats + '</p>' +
-            '<p>Games played: ' + game.score + '</p>' +
+            '<main id="drawTable">' +
+                '<div id="hangmanDraw">something</div> '+
+                '<div>' +
+                    '<ul id="letters">' +
+                    '</ul>' +
+                '</div>' +
+                '<div id="scoreCanvas">' +
+                    '<h4>Remaining: ' + game.remaining + '</h4>' +
+                    '<p>Wins: ' + game.wins + '</p>' +
+                    '<p>Defeats: ' + game.defeats + '</p>' +
+                    '<p>Games played: ' + game.score + '</p>' +
+                '</div>' +
             '</div>';
     },
 
@@ -66,13 +68,13 @@ var game = {
         return game.wordDraw();
     },
 
-    validateLetter: function () {
-        if (game.validLetters[0].test(game.userPick)) {
-            game.validLetters[1] = true;
-        } else {
-            game.validLetters[1] = false;
-        };
-    },
+    // validateLetter: function () {
+    //     if (game.validLetters[0].test(game.userPick) && game.userpick >= 'A' && game.userpick <= 'Z') {
+    //         game.validLetters[1] = true;
+    //     } else {
+    //         game.validLetters[1] = false;
+    //     };
+    // },
 
     checkMatchedLetters: function () {
         for (var n = 0; n < game.lettersGuessed.length; n++) {
@@ -87,9 +89,9 @@ var game = {
         for (var m = 0; m < game.lettersPressed.length; m++) {
             if (game.userPick === game.lettersPressed[m]) {
                 if (game.userPick === game.lettersPressed[m] && game.checkMatchedLetters()) {
-                    return document.querySelector('#messageCanvas').innerHTML = '<h3 id="mainMessage">Again ' + game.userPick + '? I already said good job!</h3>';
+                    return document.querySelector('#messageCanvas').innerHTML = '<h3 id="mainMessage" style="color: #aa1616;">Again ' + game.userPick + '? I already said good job!</h3>';
                 } else {
-                    return document.querySelector('#messageCanvas').innerHTML = '<h3 id="mainMessage">Again ' + game.userPick + '? is not there!</h3>';
+                    return document.querySelector('#messageCanvas').innerHTML = '<h3 id="mainMessage" style="color: #aa1616;">Again ' + game.userPick + '? is not there!</h3>';
                 };
             };
         };
@@ -97,14 +99,14 @@ var game = {
         if (game.wordToGuess.indexOf(game.userPick) != -1 && !game.checkMatchedLetters()) {
             game.lettersGuessed.push(game.userPick);
             if (game.letterFound[1] === 1) {
-                return document.querySelector('#messageCanvas').innerHTML = '<h3 id="mainMessage">Good job, ' + game.userPick + ' was found once.</h3>';
+                return document.querySelector('#messageCanvas').innerHTML = '<h3 id="mainMessage" style="color: #4eaa16;">Good job, ' + game.userPick + ' was found once.</h3>';
             } else {
-                return document.querySelector('#messageCanvas').innerHTML = '<h3 id="mainMessage">Good job, ' + game.userPick + ' was found ' + game.letterFound[1] + ' times</h3>';
+                return document.querySelector('#messageCanvas').innerHTML = '<h3 id="mainMessage" style="color: #4eaa16;">Good job, ' + game.userPick + ' was found ' + game.letterFound[1] + ' times</h3>';
             };
         };
         if (game.wordToGuess.indexOf(game.userPick) === -1) {
             game.remaining--;
-            return document.querySelector('#messageCanvas').innerHTML = '<h3 id="mainMessage">Oops, ' + game.userPick + ' is not in there.</h3>';
+            return document.querySelector('#messageCanvas').innerHTML = '<h3 id="mainMessage" style="color: #dfac12;">Oops, ' + game.userPick + ' is not in there.</h3>';
         }
     },
 
@@ -137,7 +139,7 @@ var game = {
             game.playAgainStatus = false;
             document.querySelector('#mainCanvas').innerHTML =
                 '<div id="messageCanvas">' +
-                '<h3>You Lost, Thanks for playing!</h3>' +
+                '<h3>You Loose the word was ' + game.wordToGuess + ', Thanks for playing!</h3>' +
                 '</div>' +
                 '<div id="scoreCanvas">' + game.updateScoreCanvas() + '</div>' +
                 '<div id="buttons"><button>Press (P) to play again</button>';
@@ -170,7 +172,7 @@ var game = {
             game.playAgainStatus = true;
             document.querySelector('#mainCanvas').innerHTML =
                 '<div id="mainCanvas">' +
-                '<h3>Press any key to start!</h3>' +
+                '<span class="blinkingTitle">Press any key to start!</h3>' +
                 '</div>';
         }
     }
@@ -185,13 +187,13 @@ document.onkeyup = function (event) {
         game.createWord();
         game.wordDraw();
     } else if (game.decidedToPlay && game.playAgainStatus) {
-        game.validateLetter();
-        if (game.validLetters[1]) {
+        // game.validateLetter();
+        if (/[A-Z]/.test(game.userPick)) {
             game.checkWord();
             game.checkLettersTyped();
             game.updateScoreCanvas();
             game.checkWin();
-        } else if (!game.validLetters[1]) {
+        } else { 
             document.querySelector('#messageCanvas').innerHTML = '<h3 id="mainMessage">This is not a letter</h3>';
         };
     } else if (!game.decidedToPlay && !game.playAgainStatus) {

@@ -4,6 +4,112 @@ body{
     background-color: #000;
 }
 
+.leftBg{
+    position: fixed;
+    left: -40px;
+    height: 100%;
+}
+
+.rightBg{
+    position: fixed;
+    right: -40px;
+    height: 100%;
+}
+
+.container{
+    width: 960px;
+    margin: 0 auto;
+}
+
+header{
+    padding: 20px 0;
+}
+
+#logo{
+    width: 100%;
+}
+
+h1{
+    font-family: 'Carter One', cursive;
+    font-size: 30px;
+}
+
+h3{
+    
+    
+}
+
+.blinkingTitle {
+    -webkit-animation-name: blinker;
+    -webkit-animation-duration: 1s;
+    -webkit-animation-timing-function: linear;
+    -webkit-animation-iteration-count: infinite;
+    
+    -moz-animation-name: blinker;
+    -moz-animation-duration: 1s;
+    -moz-animation-timing-function: linear;
+    -moz-animation-iteration-count: infinite;
+    
+    animation-name: blinker;
+    animation-duration: 1s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    color: dfac12;
+    font-size: 2em;
+    text-align: center;
+}
+
+@-moz-keyframes blinker {  
+    0% { opacity: 1.0; }
+    50% { opacity: 0.0; }
+    100% { opacity: 1.0; }
+}
+
+@-webkit-keyframes blinker {  
+    0% { opacity: 1.0; }
+    50% { opacity: 0.0; }
+    100% { opacity: 1.0; }
+}
+
+@keyframes blinker {  
+    0% { opacity: 1.0; }
+    50% { opacity: 0.0; }
+    100% { opacity: 1.0; }
+}
+
+#drawTable{
+    display: inline;
+    width: 90%;
+}
+
+#hangmanDraw{
+    width: 49%;
+    float: left;
+};
+
+#mainCanvas{
+    margin: 0 auto;
+    width: 49%;
+    float: left;
+}
+
+#messageCanvas{
+    margin: 0 auto;
+    text-align: center;
+    padding: 20px 0;
+    font-size: 20px;
+    color: #fff;
+    border-top: #717171 solid 1px;
+    border-bottom: #717171 solid 1px;
+    margin-bottom: 20px;
+    width: 90%;
+}
+
+#scoreCanvas{
+    text-align: left;
+    padding-top: 20px;
+}
+
 ul{
     display: inline-block;
 }
@@ -26,16 +132,57 @@ li:last-child{
     clear: both;
 }
 
-.container{
-    width: 960px;
-    margin: 0 auto;
+@media only screen and (max-width:1680px) {
+    .leftBg{
+        position: fixed;
+        left: -100px;
+        height: 100%;
+    }
+    
+    .rightBg{
+        position: fixed;
+        right: -100px;
+        height: 100%;
+    }
 }
 
-header{
-    padding: 20px 0;
+@media only screen and (max-width:1560px) {
+    .leftBg{
+        position: fixed;
+        left: -200px;
+        height: 100%;
+    }
+    
+    .rightBg{
+        position: fixed;
+        right: -200px;
+        height: 100%;
+    }
 }
 
-h1{
-    font-family: 'Carter One', cursive;
-    font-size: 30px;
+@media only screen and (max-width:1360px) {
+    .container{
+        width: 800px;
+        margin: 0 auto;
+    }
+}
+
+@media only screen and (max-width:1200px) {
+    .container{
+        width: 600px;
+        margin: 0 auto;
+    }
+}
+
+@media only screen and (max-width:1200px) {
+    .container{
+        width: 600px;
+        margin: 0 auto;
+    }
+}
+
+@media only screen and (max-width:1000px) {
+    .leftBg, .rightBg{
+        display: none;
+    }
 }
