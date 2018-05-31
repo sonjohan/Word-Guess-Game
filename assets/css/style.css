@@ -34,9 +34,13 @@ h1{
     font-size: 30px;
 }
 
-h3{
-    
-    
+p{
+    line-height: 1.4em;
+    color: #848484;
+}
+
+.important1{
+    color: #fff;
 }
 
 .blinkingTitle {
@@ -77,32 +81,51 @@ h3{
     100% { opacity: 1.0; }
 }
 
-#drawTable{
-    display: inline;
-    width: 90%;
-}
-
-#hangmanDraw{
-    width: 49%;
-    float: left;
-};
-
-#mainCanvas{
-    margin: 0 auto;
-    width: 49%;
-    float: left;
-}
-
 #messageCanvas{
     margin: 0 auto;
     text-align: center;
     padding: 20px 0;
     font-size: 20px;
     color: #fff;
-    border-top: #717171 solid 1px;
-    border-bottom: #717171 solid 1px;
+    border-top: #4c4c4c solid 1px;
+    border-bottom: #4c4c4c solid 1px;
     margin-bottom: 20px;
     width: 90%;
+}
+
+#mainCanvas{
+    margin: 0 auto;
+    display: inline;
+}
+
+#hangmanDraw{
+    margin-left: 5%;
+    margin-right: 5%;
+    width: 30%;
+    float: left;
+    height: 180px;
+    border: #4c4c4c solid 1px;
+    text-align: center;
+};
+
+#drawTable{
+    margin: 0 auto;
+    width: 60%;
+    float: right;
+}
+
+.wrapper{
+    padding: 20px;
+}
+
+#centered{
+    width: 40%;
+    text-align: center;
+    margin: 0 auto;
+}
+
+#buttons{
+    padding-top: 20px;
 }
 
 #scoreCanvas{
@@ -122,6 +145,7 @@ li{
     color: transparent;
     width: 16px;
     text-align: center;
+    font-size: 1em;
 }
 
 li:last-child{

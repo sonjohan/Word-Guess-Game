@@ -12,7 +12,7 @@ var game = {
     letterFound: ['', 0, false],
     score: 0,
     decidedToPlay: false,
-    // validLetters: [/[A-Z]/, true],
+    validLetters: ['Q','W','E','R','T','Y','U','I','O','P','A','S','D','F','G','H','J','K','L','Z','X','C','V','B','N','M'],
     winCounter: [],
 
     drawMainCanvas: function () {
@@ -20,17 +20,17 @@ var game = {
             '<div id="messageCanvas">' +
                 '<h3>Please pick a letter, good luck!</h3>' +
             '</div>' +
-            '<main id="drawTable">' +
-                '<div id="hangmanDraw">something</div> '+
-                '<div>' +
+            '<div id="drawTable">' +
+                '<div id="hangmanDraw"></div> '+
+                '<div class="wrapper">' +
                     '<ul id="letters">' +
                     '</ul>' +
-                '</div>' +
-                '<div id="scoreCanvas">' +
-                    '<h4>Remaining: ' + game.remaining + '</h4>' +
-                    '<p>Wins: ' + game.wins + '</p>' +
-                    '<p>Defeats: ' + game.defeats + '</p>' +
-                    '<p>Games played: ' + game.score + '</p>' +
+                    '<div id="scoreCanvas">' +
+                        '<p class="important1">Remaining: ' + game.remaining + '<p>' +
+                        '<p>Wins: ' + game.wins + '</p>' +
+                        '<p>Defeats: ' + game.defeats + '</p>' +
+                        '<p>Games played: ' + game.score + '</p>' +
+                    '</div>' +
                 '</div>' +
             '</div>';
     },
@@ -68,14 +68,6 @@ var game = {
         return game.wordDraw();
     },
 
-    // validateLetter: function () {
-    //     if (game.validLetters[0].test(game.userPick) && game.userpick >= 'A' && game.userpick <= 'Z') {
-    //         game.validLetters[1] = true;
-    //     } else {
-    //         game.validLetters[1] = false;
-    //     };
-    // },
-
     checkMatchedLetters: function () {
         for (var n = 0; n < game.lettersGuessed.length; n++) {
             if (game.userPick === game.lettersGuessed[n]) {
@@ -89,8 +81,10 @@ var game = {
         for (var m = 0; m < game.lettersPressed.length; m++) {
             if (game.userPick === game.lettersPressed[m]) {
                 if (game.userPick === game.lettersPressed[m] && game.checkMatchedLetters()) {
+                    document.getElementById('fail2').play();
                     return document.querySelector('#messageCanvas').innerHTML = '<h3 id="mainMessage" style="color: #aa1616;">Again ' + game.userPick + '? I already said good job!</h3>';
                 } else {
+                    document.getElementById('fail2').play();
                     return document.querySelector('#messageCanvas').innerHTML = '<h3 id="mainMessage" style="color: #aa1616;">Again ' + game.userPick + '? is not there!</h3>';
                 };
             };
@@ -99,20 +93,24 @@ var game = {
         if (game.wordToGuess.indexOf(game.userPick) != -1 && !game.checkMatchedLetters()) {
             game.lettersGuessed.push(game.userPick);
             if (game.letterFound[1] === 1) {
+                document.getElementById('complete').play();
                 return document.querySelector('#messageCanvas').innerHTML = '<h3 id="mainMessage" style="color: #4eaa16;">Good job, ' + game.userPick + ' was found once.</h3>';
             } else {
+                document.getElementById('complete').play();
                 return document.querySelector('#messageCanvas').innerHTML = '<h3 id="mainMessage" style="color: #4eaa16;">Good job, ' + game.userPick + ' was found ' + game.letterFound[1] + ' times</h3>';
             };
         };
         if (game.wordToGuess.indexOf(game.userPick) === -1) {
             game.remaining--;
+            document.getElementById('fail').play();
+            document.querySelector('#hangmanDraw').innerHTML = '<img src="assets/images/hangman'+ game.remaining +'.png" alt="Hangman Drawing">';
             return document.querySelector('#messageCanvas').innerHTML = '<h3 id="mainMessage" style="color: #dfac12;">Oops, ' + game.userPick + ' is not in there.</h3>';
         }
     },
 
     updateScoreCanvas: function () {
         return document.querySelector('#scoreCanvas').innerHTML =
-            '<h4>Remaining: ' + game.remaining + '</h4>' +
+            '<p class="important1">Remaining: ' + game.remaining + '</p>' +
             '<p>Wins: ' + game.wins + '</p>' +
             '<p>Defeats: ' + game.defeats + '</p>' +
             '<p>Games played: ' + game.score + '</p>';
@@ -124,12 +122,15 @@ var game = {
             game.score++;
             game.decidedToPlay = false;
             game.playAgainStatus = false;
+            document.getElementById('win').play();
             document.querySelector('#mainCanvas').innerHTML =
                 '<div id="messageCanvas">' +
-                '<h3>You Win, Congratulations!</h3>' +
+                    '<h3>You Win, Congratulations!</h3>' +
                 '</div>' +
-                '<div id="scoreCanvas">' + game.updateScoreCanvas() + '</div>' +
-                '<div id="buttons"><button>Press (P) to play again</button>';
+                '<div id="centered">' +
+                    '<div id="scoreCanvas">' + game.updateScoreCanvas() + '</div>' +
+                    '<div id="buttons"><button>Press (P) to play again</button>' +
+                '</div>';
 
             return true;
         } else if (game.remaining === 0) {
@@ -137,12 +138,18 @@ var game = {
             game.defeats++;
             game.decidedToPlay = false;
             game.playAgainStatus = false;
+            document.getElementById('gameOver').play();
             document.querySelector('#mainCanvas').innerHTML =
                 '<div id="messageCanvas">' +
-                '<h3>You Loose the word was ' + game.wordToGuess + ', Thanks for playing!</h3>' +
+                    '<h3>Game Over! the word was ' + game.wordToGuess + ', Thanks for playing!</h3>' +
                 '</div>' +
-                '<div id="scoreCanvas">' + game.updateScoreCanvas() + '</div>' +
-                '<div id="buttons"><button>Press (P) to play again</button>';
+                '<div id="drawTable">' +
+                    '<div id="hangmanDraw"><img src="assets/images/hangman'+ game.remaining +'.png" alt="Hangman Drawing"></div>'+
+                    '<div class="wrapper">' +
+                        '<div id="scoreCanvas">' + game.updateScoreCanvas() + '</div>' +
+                        '<div id="buttons"><button>Press (P) to play again</button>' +
+                    '</div>' +
+                '</div>';
 
             return true;
         } else if (game.decidedToPlay === true) {
@@ -155,10 +162,12 @@ var game = {
         if (game.userPick != 'P') {
             return document.querySelector('#mainCanvas').innerHTML =
                 '<div id="messageCanvas">' +
-                '<h3>Press (P) to play again</h3>' +
+                    '<h3>Press (P) to play again</h3>' +
                 '</div>' +
-                '<div id="buttons"><button>Press (P) to play again</button>';
-        }
+                '<div id="centered">' +
+                    '<div id="buttons"><button>Press (P) to play again</button>' +
+                '</div>';
+        };
 
         if (game.userPick === 'P') {
             game.remaining = 8;
@@ -172,9 +181,11 @@ var game = {
             game.playAgainStatus = true;
             document.querySelector('#mainCanvas').innerHTML =
                 '<div id="mainCanvas">' +
-                '<span class="blinkingTitle">Press any key to start!</h3>' +
+                    '<div id="messageCanvas">' +
+                        '<span class="blinkingTitle">Press any key to start!</span>' +
+                    '</div>'+
                 '</div>';
-        }
+        };
     }
 };
 
@@ -186,15 +197,17 @@ document.onkeyup = function (event) {
         game.wordToGuess = game.words[Math.floor(Math.random() * game.words.length)];
         game.createWord();
         game.wordDraw();
+        document.getElementById('coin').play();
     } else if (game.decidedToPlay && game.playAgainStatus) {
-        // game.validateLetter();
-        if (/[A-Z]/.test(game.userPick)) {
+        // if (/[A-Z]/.test(game.userPick)) {
+        if (game.validLetters.indexOf(game.userPick) != -1) {
             game.checkWord();
             game.checkLettersTyped();
             game.updateScoreCanvas();
             game.checkWin();
         } else { 
-            document.querySelector('#messageCanvas').innerHTML = '<h3 id="mainMessage">This is not a letter</h3>';
+            document.getElementById('fail2').play();
+            document.querySelector('#messageCanvas').innerHTML = '<h3 id="mainMessage" style="color: #dfac12;">This is not a letter</h3>';
         };
     } else if (!game.decidedToPlay && !game.playAgainStatus) {
         game.playAgain();
