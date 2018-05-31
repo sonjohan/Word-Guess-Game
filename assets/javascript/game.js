@@ -1,5 +1,5 @@
 var game = {
-    words: ['BATMAN', 'SUPERMAN', 'WONDER WOMAN', 'GREEN LANTERN', 'THE FLASH', 'AQUAMAN', 'CYBORG'],
+    words: ['BATMAN', 'SUPERMAN', 'WONDER WOMAN', 'GREEN LANTERN', 'THE FLASH', 'AQUAMAN', 'CYBORG', 'SPIDERMAN', 'IRONMAN', 'THE HULK', 'BLACK PANTHER', 'THOR', 'WOLVERINE', 'ANTMAN', 'GREEN ARROW'],
     remaining: 8,
     wins: 0,
     defeats: 0,
